@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>比價網</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    #prod-section {
+      margin-top: 30px;
+    }
+
+    #prod-section .prod-card {
+      margin: 10px;
+    }
+
+    #prod-section .prod-title {
+      overflow: hidden;  
+      text-overflow: ellipsis;  
+      white-space: normal;  
+      display: -webkit-box;  
+      -webkit-box-orient: vertical;  
+      -webkit-line-clamp: 2; /*最多顯示兩行*/
+
+      text-decoration: none;
+      color: black;
+      transition: all .5s ease;
+    }
+
+    #prod-section .prod-title:hover {
+      color: #007bff;
+    }
+
+    #prod-section .prod-from {
+      width: 25px;
+      height: 25px;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <!-- navbar start -->
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="index">比價網</a>
+  </nav>
+  <!-- navbar end -->
+
+  <!-- prod-section start -->
+  <div id="prod-section">
+    <div class="container">
+      <div class="row">
+        {% for prod in prod_list %}
+          <div class="col-3">
+            <div class="prod-card card">
+              <img src="{{ prod.prod_pic }}" class="card-img-top">
+              <div class="card-body">
+                <a href="{{ prod.url }}" target="_blank" class="card-title prod-title">{{ prod.name }}</a>
+                <span class="card-text">$ {{ prod.prod_price }}</span>
+                <img class="prod-from" src="/static/{{prod.from}}.png" alt="">
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- prod-section end -->
+  
+
+  <!-- {% for prod in prod_list %}
+    <div class="prod_block">
+      <p class="title">商品名稱：{{ prod.name }}</p>
+      <p class="price">商品價格：{{ prod.prod_price }}</p>
+    </div>
+  {% endfor %} -->
+  
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

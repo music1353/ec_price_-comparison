@@ -1,0 +1,27 @@
+.anchor {
+  text-decoration: none;
+  color: blue;
+}
+
+.product-info-box {
+  display: inline-block;
+  border: 1px solid #333;
+}
+
+.product-name {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-name {
+  font-size: 20px;
+}
+
+.red--text {
+  color: red;
+}
+
+.center--text {
+  text-align: center;
+}
