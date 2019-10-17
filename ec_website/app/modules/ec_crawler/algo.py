@@ -102,3 +102,52 @@ def umall(q, name, num):
             q.put(obj)
     else:
         print('error')
+
+
+def friday(q, name, num):
+    '''
+    Args:
+        q (Queue): 存放演算法爬出的商品列表
+        name (String): 商品名稱
+        num (Int): 要爬的商品數量
+
+    Result:
+        把商品都存到q(Queue)
+    '''
+
+    # base
+    header = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+        'Connection': 'close'
+    }
+    
+    # main
+    for page_num in range(1, int(int(num)/20)+1):
+        FRIDAY_URL = 'https://mservice-event.shopping.friday.tw/api/v1/search?search='+ name + '&keyword='+ name +'&page='+ str(page_num)
+        resp = requests.get(FRIDAY_URL, headers=header)
+        
+        if resp.status_code == 200: # 如果請求成功，則去抓產品列表
+            data = json.loads(resp.text)
+            prods = data['data']
+
+            for item in prods: # 抓細項
+                prod_id = item['pid']
+                prod_name = item['name']
+                prod_price = str(item['price'])
+                prod_url = item['link']
+                prod_pic = item['imgurl']
+
+                obj = {
+                    'from': 'friday',
+                    'id': prod_id,
+                    'name': prod_name,
+                    'prod_price': prod_price,
+                    'url': prod_url,
+                    'prod_pic': prod_pic
+                }
+                q.put(obj)
+
+            time.sleep(0.5) 
+        else:
+            print('error')
+            break

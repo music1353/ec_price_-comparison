@@ -6,46 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>比價網</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  <style>
-    #prod-section {
-      margin-top: 30px;
-    }
-
-    #prod-section .prod-card {
-      margin: 10px;
-    }
-
-    #prod-section .prod-title {
-      overflow: hidden;  
-      text-overflow: ellipsis;  
-      white-space: normal;  
-      display: -webkit-box;  
-      -webkit-box-orient: vertical;  
-      -webkit-line-clamp: 2; /*最多顯示兩行*/
-
-      text-decoration: none;
-      color: black;
-      transition: all .5s ease;
-    }
-
-    #prod-section .prod-title:hover {
-      color: #007bff;
-    }
-
-    #prod-section .prod-from {
-      width: 25px;
-      height: 25px;
-      float: right;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
 </head>
 <body>
   <!-- navbar start -->
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="index">比價網</a>
-  </nav>
+  {% include "components/navbar.html" %}
   <!-- navbar end -->
+
+  <!-- sort-prod-section start -->
+  <section id="sort-prod-section">
+    <div class="container">
+      <div class="row">
+        <span style="line-height: 38px;">選擇排序模式：</span>
+        <select id="sort-select" class="custom-select">
+          <option selected>choose...</option>
+          <option value="1">價格低至高</option>
+          <option value="2">價格高至低</option>
+        </select>
+      </div>
+    </div>
+  </section>
+  <!-- sort-prod-section end -->
 
   <!-- prod-section start -->
   <div id="prod-section">
@@ -57,7 +38,7 @@
               <img src="{{ prod.prod_pic }}" class="card-img-top">
               <div class="card-body">
                 <a href="{{ prod.url }}" target="_blank" class="card-title prod-title">{{ prod.name }}</a>
-                <span class="card-text">$ {{ prod.prod_price }}</span>
+                <span class="card-text prod-price">${{ prod.prod_price }}</span>
                 <img class="prod-from" src="/static/{{prod.from}}.png" alt="">
               </div>
             </div>
@@ -67,18 +48,25 @@
     </div>
   </div>
   <!-- prod-section end -->
-  
 
-  <!-- {% for prod in prod_list %}
-    <div class="prod_block">
-      <p class="title">商品名稱：{{ prod.name }}</p>
-      <p class="price">商品價格：{{ prod.prod_price }}</p>
-    </div>
-  {% endfor %} -->
-  
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <script>
+    $('#sort-select').change(function() {
+      let sort = $('#sort-select').val();
+
+      // 取得目前網址q參數
+      let currentUrl = location.href;
+      let url = new URL(currentUrl);
+      let q = url.searchParams.get('q');
+      
+      window.location.href = 'http://localhost:5000/search?q='+q+'&sort='+sort;
+    })
+  </script>
 </body>
 </html>

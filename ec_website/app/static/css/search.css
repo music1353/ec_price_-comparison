@@ -1,0 +1,51 @@
+#prod-section {
+  margin-top: 30px;
+}
+
+#prod-section .prod-card {
+  margin: 10px;
+}
+
+#prod-section .prod-card .card-img-top{
+  width: 233px;
+  height: 233px;
+}
+
+#prod-section .prod-card .prod-price {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+#prod-section .prod-title {
+  overflow: hidden;  
+  text-overflow: ellipsis;  
+  white-space: normal;  
+  display: -webkit-box;  
+  -webkit-box-orient: vertical;  
+  -webkit-line-clamp: 2; /*最多顯示兩行*/
+
+  text-decoration: none;
+  color: black;
+  transition: all .5s ease;
+}
+
+#prod-section .prod-title:hover {
+  color: #007bff;
+}
+
+#prod-section .prod-from {
+  width: 25px;
+  height: 25px;
+  float: right;
+}
+
+/* sort prod section */
+#sort-prod-section {
+  margin-top: 30px;
+}
+
+#sort-select {
+  width: 350px;
+}
